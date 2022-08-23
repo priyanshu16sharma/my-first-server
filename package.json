@@ -1,0 +1,19 @@
+{
+  "name": "my-first-server",
+  "version": "1.0.0",
+  "description": "My first server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyanshu16sharma/my-first-server.git"
+  },
+  "author": "Priyanshu Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priyanshu16sharma/my-first-server/issues"
+  },
+  "homepage": "https://github.com/priyanshu16sharma/my-first-server#readme"
+}

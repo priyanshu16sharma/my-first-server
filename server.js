@@ -1,17 +1,18 @@
 const http = require('http');
 
-const todo = ['apple is a fruit','an apple a day keeps the doctor away']
+let todo = ['DS','DBMS','EM','DF'];
 
 http.createServer((req,res)=>{
     const {method,url} = req;
-
+    
     if(url === '/todolist'){
         if(method === 'GET'){
         res.writeHead(200,{'Content-Type' : 'text/html'});
         res.write(todo.toString());
         }
+
         else if(method === 'POST'){
-            let body = "";
+            let body="";
             req
             .on('data',(chunk)=>{
                 body += chunk;
@@ -22,8 +23,44 @@ http.createServer((req,res)=>{
             })
             .on('end',()=>{
                 body=JSON.parse(body);
-                console.log("data:",body);
+                let todocopy = todo;
+                todocopy.push(body.item);
+                console.log(todocopy);
+                todo=todocopy;
             });
+        }
+
+        else if(method === 'DELETE'){
+            let body="";
+            req
+            .on("error",()=>{
+                res.writeHead(502);
+            })
+            .on("data", (chunk)=>{
+                body+=chunk;
+                console.log(body);
+            })
+            .on("end",()=>{
+                
+                body=JSON.parse(body);
+                let deletethis=body.item;
+                // for(i=0; i<todo.length; i++){
+                //     if(todo[i] === deletethis){
+                //         todo.splice(i,1);
+                //     }
+                // }
+                todo.find((element,index)=>{
+                if(element===deletethis){
+                    todo.splice(index,1);
+                }
+                });
+                console.log(todo);
+                res.writeHead(204);
+            })
+
+        }
+        else{
+            res.writeHead(501);
         }
 
     }
